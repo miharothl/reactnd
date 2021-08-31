@@ -1,14 +1,9 @@
 ### Instructions
 
-This file gives you a functioning app. But, as you can tell, the App
-isn't modular at all - there is only 1 component!
+**Task**: Edit the code to make the printed text mirror what we type into the input
+field. When we erase all of the text, nothing should be printed to the screen.
 
-**Task**: Break down this app into components and make them work together to achieve
-exactly the same result.
+Remember that the React component that renders the form also controls what
+happens in that form on user input.
 
-Remember that React components should be modular, composable (can be assembled in various
-ways to achieve the desired result on the page), and reusable.
-
-This exercise will help you to practice passing data into components, creating
-Stateless Functional Components, adding state to components, updating state, and
-creating Controlled Components.
+This exercise will help you solidify what you've learned about Controlled Components.

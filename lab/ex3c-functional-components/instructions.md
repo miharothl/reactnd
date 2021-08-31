@@ -14,4 +14,5 @@ Remember that a Component's constructor is the first thing that runs when the
 object is created. The render method gets called automatically every time the state changes
 inside of the component and anytime the value of the component's props changes.
 
-This exercise will help you practice what you've learned in the course so far, including the trickiest part of React - managing state.
+This exercise will help you practice what you've learned in the course so far, including the trickiest part of React -
+managing state.
