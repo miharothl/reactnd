@@ -1,65 +1,54 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import CreateNewItem from "./CreateNewItem";
+import DeleteLastItem from "./DeleteLastItem";
+import ItemList from "./ItemList";
 
 class App extends React.Component {
-  state = {
-    value: '',
-    items: [],
-  };
+    state = {
+        items: [],
+    };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
+   handleAddItem = (item) => {
+        this.setState(oldState => (
+            {items: [...oldState.items, item]}
+        ))
+    }
 
-  addItem = event => {
-    event.preventDefault();
-    this.setState(oldState => ({
-      items: [...oldState.items, this.state.value],
-    }));
-  };
+    handleDeleteLastItem = event => {
+        this.setState(prevState => ({items: this.state.items.slice(0, -1)}));
+    };
 
-  deleteLastItem = event => {
-    this.setState(prevState => ({ items: this.state.items.slice(0, -1) }));
-  };
+    handleNoItemsFound = () => {
+        return this.state.items.length === 0;
+    };
 
-  inputIsEmpty = () => {
-    return this.state.value === '';
-  };
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo"/>
+                    <h1 className="App-title">ReactND - Coding Practice</h1>
+                </header>
 
-  noItemsFound = () => {
-    return this.state.items.length === 0;
-  };
+                <h2>Shopping List</h2>
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">ReactND - Coding Practice</h1>
-        </header>
-        <h2>Shopping List</h2>
-        <form onSubmit={this.addItem}>
-          <input
-            type="text"
-            placeholder="Enter New Item"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button disabled={this.inputIsEmpty()}>Add</button>
-        </form>
+                <CreateNewItem
+                    handleAddItem={this.handleAddItem}
+                />
 
-        <button onClick={this.deleteLastItem} disabled={this.noItemsFound()}>
-          Delete Last Item
-        </button>
+                <DeleteLastItem
+                    handleNoItemFound={this.handleNoItemsFound}
+                    handleDeleteLastItem={this.handleDeleteLastItem}
+                />
 
-        <p className="items">Items</p>
-        <ol className="item-list">
-          {this.state.items.map((item, index) => <li key={index}>{item}</li>)}
-        </ol>
-      </div>
-    );
-  }
+                <ItemList
+                    items={this.state.items}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;
