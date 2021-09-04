@@ -8,7 +8,7 @@ class ListContacts extends Component {
     }
 
     state = {
-        query:''
+        query: ''
     }
 
     updateQuery = (query) => {
@@ -17,14 +17,18 @@ class ListContacts extends Component {
         }))
     }
 
+    clearQuery = () => {
+        this.updateQuery('')
+    }
+
     render() {
         console.log('Props', this.props)
 
-        const { query } = this.state
-        const { contacts, onDeleteContact } = this.props
+        const {query} = this.state
+        const {contacts, onDeleteContact} = this.props
 
         const showingContacts = query === ''
-        ? contacts
+            ? contacts
             : contacts.filter((c) => (
                 c.name.toLowerCase().includes(query.toLowerCase())
             ))
@@ -44,6 +48,15 @@ class ListContacts extends Component {
                         onChange={(event) => this.updateQuery(event.target.value)}
                     />
                 </div>
+                <div>
+                    {showingContacts.length !== contacts.length && (
+                        <div className='showing-contacts'>
+                            <span>Now showing {showingContacts.length} of {contacts.length}</span>
+                            <button onClick={this.clearQuery}>Show all</button>
+                        </div>
+                    )}
+                </div>
+
                 <ol className='contact-list'>
                     {showingContacts.map(contact => (
                         <li key={contact.id} className='contact-list-item'>
