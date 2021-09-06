@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import ListContacts from './ListContacts'
+import CreateContact from './CreateContact'
+
+import * as ContactsApi from './utils/ContactsAPI'
 
 // const contacts = [
 //  {
@@ -24,44 +27,75 @@ import ListContacts from './ListContacts'
 
 class App extends Component {
 
+    // state = {
+    //     contacts: [
+    //         {
+    //             "id": "karen",
+    //             "name": "Karen Isgrigg",
+    //             "handle": "karen_isgrigg",
+    //             "avatarURL": "http://localhost:5001/karen.jpg"
+    //         },
+    //         {
+    //             "id": "richard",
+    //             "name": "Richard Kalehoff",
+    //             "handle": "richardkalehoff",
+    //             "avatarURL": "http://localhost:5001/richard.jpg"
+    //         },
+    //         {
+    //             "id": "tyler",
+    //             "name": "Tyler McGinnis",
+    //             "handle": "tylermcginnis",
+    //             "avatarURL": "http://localhost:5001/tyler.jpg"
+    //         }
+    //     ]
+    // }
+
+
     state = {
-        contacts: [
-            {
-                "id": "karen",
-                "name": "Karen Isgrigg",
-                "handle": "karen_isgrigg",
-                "avatarURL": "http://localhost:5001/karen.jpg"
-            },
-            {
-                "id": "richard",
-                "name": "Richard Kalehoff",
-                "handle": "richardkalehoff",
-                "avatarURL": "http://localhost:5001/richard.jpg"
-            },
-            {
-                "id": "tyler",
-                "name": "Tyler McGinnis",
-                "handle": "tylermcginnis",
-                "avatarURL": "http://localhost:5001/tyler.jpg"
-            }
-        ]
+        contacts: [],
+        screen: 'list',
     }
+
+
+    componentDidMount() {
+        ContactsApi.getAll().then((contacts) => {
+            this.setState(() => ({
+                contacts
+            }))
+        })
+    }
+
 
     removeContact = (contact) => {
         this.setState((currentState) => ({
-                contacts:currentState.contacts.filter((c) => {
-                    return c.id !== contact.id
-                })
-      }))
+            contacts: currentState.contacts.filter((c) => {
+                return c.id !== contact.id
+            })
+        }))
+        ContactsApi.remove(contact);
     }
 
     render() {
         return (
             <div>
-                <ListContacts
-                    contacts={this.state.contacts}
-                    onDeleteContact={this.removeContact}
-                />
+                {
+                    this.state.screen === 'list' && (
+                        <ListContacts
+                            contacts={this.state.contacts}
+                            onDeleteContact={this.removeContact}
+                            onNavigate={() => {
+                                this.setState(() => ({
+                                    screen:'create'
+                                }))
+                            }}
+                        />
+                    )
+                }
+                {
+                    this.state.screen === 'create' && (
+                        <CreateContact/>
+                    )
+                }
 
             </div>
         )
