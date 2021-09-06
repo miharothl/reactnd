@@ -3,6 +3,7 @@ import ListContacts from './ListContacts'
 import CreateContact from './CreateContact'
 
 import * as ContactsApi from './utils/ContactsAPI'
+import {Route} from "react-router-dom";
 
 // const contacts = [
 //  {
@@ -53,7 +54,7 @@ class App extends Component {
 
     state = {
         contacts: [],
-        screen: 'list',
+        // screen: 'list',
     }
 
 
@@ -75,27 +76,60 @@ class App extends Component {
         ContactsApi.remove(contact);
     }
 
+    createContact = (contact) => {
+        ContactsApi.create(contact)
+            .then((contact) => {
+                this.setState((currentState) => ({
+                    contacts: currentState.contacts.concat([contact])
+                }))
+            })
+    }
+
+
+
     render() {
         return (
             <div>
-                {
-                    this.state.screen === 'list' && (
-                        <ListContacts
-                            contacts={this.state.contacts}
-                            onDeleteContact={this.removeContact}
-                            onNavigate={() => {
-                                this.setState(() => ({
-                                    screen:'create'
-                                }))
-                            }}
-                        />
-                    )
-                }
-                {
-                    this.state.screen === 'create' && (
-                        <CreateContact/>
-                    )
-                }
+                <Route exact path='/' render={() => (
+                    <ListContacts
+                        contacts={this.state.contacts}
+                        onDeleteContact={this.removeContact}
+                    />
+
+                )} />
+
+                <Route path='/create' render={() => (
+
+                    <CreateContact
+                        onCreateContact={(contact) => {
+                            this.createContact(contact)
+                            // history.push('/')
+                        }}
+                    />
+
+
+                ) } />
+
+                {/*<Route path='/create' component={CreateContact} />*/}
+
+                    {/*{*/}
+                    {/*    this.state.screen === 'list' && (*/}
+                    {/*        <ListContacts*/}
+                    {/*            contacts={this.state.contacts}*/}
+                    {/*            onDeleteContact={this.removeContact}*/}
+                    {/*            onNavigate={() => {*/}
+                    {/*                this.setState(() => ({*/}
+                    {/*                    screen: 'create'*/}
+                    {/*                }))*/}
+                    {/*            }}*/}
+                    {/*        />*/}
+                    {/*    )*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    this.state.screen === 'create' && (*/}
+                    {/*        <CreateContact/>*/}
+                    {/*    )*/}
+                    {/*}*/}
 
             </div>
         )
