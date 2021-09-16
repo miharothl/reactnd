@@ -4,7 +4,13 @@ import BookShelfChanger from "./BookShelfChanger";
 class Book extends Component {
 
     render() {
-        const {name, authors, link} = this.props
+        const {book} = this.props
+
+        const imageLink = book.imageLinks && book.imageLinks.thumbnail
+                ? book.imageLinks.thumbnail
+                : null;
+
+        const title = book.title ? book.title : 'No title available';
 
         return (
             <div className="book">
@@ -12,12 +18,15 @@ class Book extends Component {
                     <div className="book-cover" style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url(${link})`
+                        backgroundImage: `url(${imageLink})`
                     }}></div>
-                    <BookShelfChanger/>
+                    <BookShelfChanger
+                        book={book}
+                        onBookShelfChanged={this.props.onBookShelfChanged}
+                    />
                 </div>
-                <div className="book-title">{name}</div>
-                <div className="book-authors">{authors}</div>
+                <div className="book-title">{title}</div>
+                <div className="book-authors">{book.authors}</div>
             </div>
         )
     }

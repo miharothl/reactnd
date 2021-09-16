@@ -8,37 +8,29 @@ import SearchBooks from "./SearchBooks";
 class BooksApp extends React.Component {
 
     state = {
-        currentlyReading: [],
-        read: [],
-        wantToRead: [],
+        books: [],
+    }
+
+    onBookShelfChanged = (shelf, book) => {
+        BooksAPI.update(book, shelf).then(response => {
+            console.log(response)
+
+            book.shelf = shelf
+
+            this.setState((currentState) => ({
+                    books: currentState.books.filter((b) => b.id !== book.id).concat(book)
+                })
+            )
+        })
     }
 
     componentDidMount() {
 
         BooksAPI.getAll().then(books => {
             this.setState(() => ({
-                currentlyReading: books.filter(book => book.shelf === 'currentlyReading'),
-                read: books.filter(book => book.shelf === 'read'),
-                wantToRead: books.filter(book => book.shelf === 'wantToRead'),
+                books: books,
             }))
         });
-
-        // BooksAPI.search('Android').then(res => console.log(res))
-        //
-        // BooksAPI.get('tsRhkvo80iUC').then(
-        //     res => {
-        //         console.log(res)
-        //     })
-        //
-        // const book = {'id': 'tsRhkvo80iUC'}
-        // BooksAPI.update(book, 'read').then(r => console.log(r))
-        //
-        //
-        // BooksAPI.getAll().then(res => console.log(res));
-        //
-        // BooksAPI.update(book, 'read').then(r => {
-        //     console.log(r)
-        // })
     }
 
     render() {
@@ -46,7 +38,9 @@ class BooksApp extends React.Component {
         return (
             <div className="app">
                 <Route exact path='/search' render={() => (
-                    <SearchBooks />
+                    <SearchBooks
+                        onBookShelfChanged={this.onBookShelfChanged}
+                    />
                 )}/>
                 <Route exact path='/' render={() => (
                     <div className="list-books">
@@ -57,15 +51,18 @@ class BooksApp extends React.Component {
                             <div>
                                 <BookShelf
                                     title={'Currently Reading'}
-                                    books={this.state.currentlyReading}
+                                    books={this.state.books.filter(book => book.shelf === 'currentlyReading')}
+                                    onBookShelfChanged={this.onBookShelfChanged}
                                 />
                                 <BookShelf
                                     title={'Want to Read'}
-                                    books={this.state.wantToRead}
+                                    books={this.state.books.filter(book => book.shelf === 'wantToRead')}
+                                    onBookShelfChanged={this.onBookShelfChanged}
                                 />
                                 <BookShelf
                                     title={'Read'}
-                                    books={this.state.read}
+                                    books={this.state.books.filter(book => book.shelf === 'read')}
+                                    onBookShelfChanged={this.onBookShelfChanged}
                                 />
 
                             </div>
