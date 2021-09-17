@@ -7,8 +7,8 @@ class Book extends Component {
         const {book} = this.props
 
         const imageLink = book.imageLinks && book.imageLinks.thumbnail
-                ? book.imageLinks.thumbnail
-                : null;
+            ? book.imageLinks.thumbnail
+            : null;
 
         const title = book.title ? book.title : 'No title available';
 
@@ -23,6 +23,7 @@ class Book extends Component {
                     <BookShelfChanger
                         book={book}
                         onBookShelfChanged={this.props.onBookShelfChanged}
+                        isBookOnShelf={this.props.isBookOnShelf}
                     />
                 </div>
                 <div className="book-title">{title}</div>
