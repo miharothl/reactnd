@@ -353,7 +353,7 @@
         addItem = (e) => {
             e.preventDefault()
             const name = this.input.value
-            this.input = ''
+            this.input.value = ''
 
             this.props.store.dispatch(
                 addTodoAction({
@@ -365,6 +365,7 @@
         }
 
         render() {
+            console.log(this.props.todos)
             return (
                 <div>
                     <h1>Todo List</h1>
@@ -382,11 +383,10 @@
 
     class Goals extends React.Component {
 
-
         addItem = (e) => {
             e.preventDefault()
             const name = this.input.value
-            this.input = ''
+            this.input.value = ''
 
             this.props.store.dispatch(
                 addGoalAction({
@@ -397,6 +397,7 @@
         }
 
         render() {
+            console.log(this.props.goals)
             return (
                 <div>
                     <h1>Goals</h1>
@@ -413,13 +414,23 @@
     }
 
     class App extends React.Component {
+
+        componentDidMount() {
+            const {store} = this.props
+            // this is anti-pattern (if you change the state React will update, but there is no state as we are using
+            // Redux
+            store.subscribe(() => this.forceUpdate())
+        }
+
         render() {
+            const {store} = this.props
+            const {todos, goals} = store.getState()
+
             return (
                 <div>
-                    APP
-
-                    <Todos store={this.props.store}/>
-                    <Goals store={this.props.store}/>
+                    APP2
+                    <Todos todos={todos} store={this.props.store}/>
+                    <Goals goals={goals} store={this.props.store}/>
                 </div>
             )
         }
