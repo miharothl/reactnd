@@ -3,16 +3,28 @@
 <head>
     <title>Udacity Todos Goals</title>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- add redux -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
+
+    <!-- add react -->
     <script src='https://unpkg.com/react@16.3.0-alpha.1/umd/react.development.js'></script>
     <script src='https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js'></script>
     <script src='https://unpkg.com/babel-standalone@6.15.0/babel.min.js'></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- simulate database -->
+    <script src="https://tylermcginnis.com/goals-todos-api/index.js"></script>
+
+    <!-- add bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- custom css if needed -->
     <!--    <link rel="stylesheet" href="styles.css"/>-->
+
 </head>
 <body>
 <div>
@@ -30,6 +42,7 @@
     const ADD_TODO = 'ADD_TODO'
     const REMOVE_TODO = 'REMOVE_TODO'
     const TOGGLE_TODO = 'TOGGLE_TODO'
+    const RECEIVE_DATA = 'RECEIVE_DATA'
 
     function addTodoAction(todo) {
         return {
@@ -52,6 +65,14 @@
         }
     }
 
+    function receiveDataAction(todos, goals) {
+        return {
+            type: RECEIVE_DATA,
+            todos,
+            goals
+        }
+    }
+
     function todos(state = [], action) {
 
         switch (action.type) {
@@ -64,6 +85,9 @@
                     todo :
                     Object.assign({}, todo, {complete: !todo.complete})
                 )
+            case RECEIVE_DATA:
+                return action.todos
+
             default:
                 return state
         }
@@ -92,6 +116,8 @@
                 return state.concat([action.goal])
             case REMOVE_GOAL:
                 return state.filter((goal) => goal.id !== action.id)
+            case RECEIVE_DATA:
+                return action.goals
             default:
                 return state
         }
@@ -110,7 +136,6 @@
             return alert("Nope. That's a bad idea.")
         }
 
-        // return store.dispatch(action)
         return next(action)
     }
 
@@ -309,7 +334,18 @@
     class App extends React.Component {
 
         componentDidMount() {
+
             const {store} = this.props
+
+            Promise.all([
+                API.fetchTodos(),
+                API.fetchGoals()
+            ]).then(([todos, goals]) => {
+                store.dispatch(receiveDataAction(todos, goals))
+                console.log('Todos', todos)
+                console.log('Goals', goals)
+            })
+
             // this is anti-pattern (if you change the state React will update, but there is no state as we are using
             // Redux
             store.subscribe(() => this.forceUpdate())
