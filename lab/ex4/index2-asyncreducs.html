@@ -150,9 +150,19 @@
         return result
     }
 
+    function loading(state = true, action) {
+        switch (action.type) {
+            case RECEIVE_DATA:
+                return false
+            default:
+                return state
+        }
+    }
+
     const store = Redux.createStore(Redux.combineReducers({
         todos,
-        goals
+        goals,
+        loading,
     }), Redux.applyMiddleware(checker, logger))
 
     store.subscribe(() => {
@@ -264,7 +274,17 @@
         }
 
         removeItem = (todo) => {
+            // pessimistic update, lets use optimistic
+            // API.deleteTodo(todo.id).then(()=>{
+            //     this.props.store.dispatch(removeTodoAction(todo.id))
+            // })
+
+            // optimistic update
             this.props.store.dispatch(removeTodoAction(todo.id))
+            API.deleteTodo(todo.id).catch(() => {
+                this.props.store.dispatch(addTodoAction(todo))
+                alert('An error occurred. Try again.')
+            })
         }
 
         toggleItem = (id) => {
@@ -308,7 +328,12 @@
         }
 
         removeItem = (goal) => {
+            // optimistic update
             this.props.store.dispatch(removeGoalAction(goal.id))
+            API.deleteGoal(goal.id).catch(() => {
+                this.props.store.dispatch(addGoalAction(goal))
+                alert('An error occurred. Try again.')
+            })
         }
 
         render() {
@@ -353,7 +378,11 @@
 
         render() {
             const {store} = this.props
-            const {todos, goals} = store.getState()
+            const {todos, goals, loading} = store.getState()
+
+            if (loading === true) {
+                return <h3>Loading...</h3>
+            }
 
             return (
                 <div>
