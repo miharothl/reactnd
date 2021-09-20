@@ -17,20 +17,6 @@
 <body>
 <div>
     <p>Todos and Goals using REDUX</p></div>
-<hr>
-    <h1>HTML & JavaScript</h1>
-<div>
-    <h1>Todo List</h1>
-    <input id="todo" type="text" placeholder="Add Todo">
-    <button id="todoBtn">Add Todo</button>
-    <ul id="todos"></ul>
-</div>
-<div>
-    <h1>Goals</h1>
-    <input id="goal" type="text" placeholder="Add Goal">
-    <button id="goalBtn">Add Goal</button>
-    <ul id="goals"></ul>
-</div>
 
 <hr>
 
@@ -40,40 +26,6 @@
     function generateId() {
         return Math.random().toString(36).substr(2) + (new Date()).getTime().toString(36)
     }
-
-    // // state library
-    // function createStore(reducer) {
-    //     // The store should have four parts
-    //     // 1. The state
-    //     // 2. Get the state.
-    //     // 3. Listen to changes in state
-    //     // 4. Update the state
-    //
-    //     let state
-    //     let listeners = []
-    //
-    //     const getState = () => state
-    //
-    //     const subscribe = (listener) => {
-    //         listeners.push(listener)
-    //         return () => {
-    //             listeners = listeners.filter((l) => l !== listener)
-    //         }
-    //     }
-    //
-    //     const dispatch = (action) => {
-    //         state = reducer(state, action)
-    //         listeners.forEach((listener) => listener())
-    //     }
-    //
-    //     return {
-    //         getState,
-    //         subscribe,
-    //         dispatch,
-    //     }
-    // }
-
-    // app
 
     const ADD_TODO = 'ADD_TODO'
     const REMOVE_TODO = 'REMOVE_TODO'
@@ -145,44 +97,6 @@
         }
     }
 
-    // function app(state = {}, action) {
-    //     return {
-    //         todos: todos(state.todos, action),
-    //         goals: goals(state.goals, action),
-    //     }
-    // }
-
-
-    // const store = createStore(todos)
-    // const store = createStore(app)
-    // const store = Redux.createStore(app)
-
-    // function checkAndDispatch(store, action) {
-    // if (action.type === ADD_TODO &&
-    //     action.todo.name.toLowerCase().includes('bitcoin')
-    // ) {
-    //     return alert("Nope. That's a bad idea.")
-    // }
-    //
-    // if (action.type === ADD_GOAL &&
-    //     action.goal.name.toLowerCase().includes('bitcoin')
-    // ) {
-    //     return alert("Nope. That's a bad idea.")
-    // }
-    //
-    // return store.dispatch(action)
-    // }
-
-
-    // function checker(store) {
-    //     return function (next) {
-    //         return function (action) {
-    //             // ....
-    //             // return next(action)
-    //         }
-    //     }
-    // }
-
     const checker = (store) => (next) => action => {
         if (action.type === ADD_TODO &&
             action.todo.name.toLowerCase().includes('bitcoin')
@@ -220,55 +134,6 @@
         console.log('THE NEW STATE IS:', store.getState())
     })
 
-    store.subscribe(() => {
-        const {goals, todos} = store.getState()
-
-        document.getElementById('goals').innerHTML = ''
-        document.getElementById('todos').innerHTML = ''
-
-        goals.forEach(addGoalToDOM)
-        todos.forEach(addTodoToDOM)
-
-        console.log('The NEW STATE is:', store.getState())
-    })
-
-    // store.dispatch(addTodoAction({
-    //     id: 0,
-    //     name: 'Learn Redux',
-    //     complete: false
-    // }))
-    //
-    // store.dispatch(addTodoAction({
-    //     id: 1,
-    //     name: 'Go windsurfing',
-    //     complete: false
-    // }))
-    //
-    // store.dispatch(addTodoAction({
-    //     id: 2,
-    //     name: 'Go mountain biking',
-    //     complete: false
-    // }))
-    //
-    // store.dispatch(toggleTodoAction(1))
-    //
-    // store.dispatch(removeTodoAction(0))
-    //
-    //
-    // store.dispatch(addGoalAction({
-    //     id: 0,
-    //     name: 'Learn Redux',
-    // }))
-    //
-    // store.dispatch(addGoalAction(
-    //     {
-    //         id: 1,
-    //         name: 'Get fit',
-    //     }
-    // ))
-
-    // store.dispatch(removeGoalAction(0))
-
     function addTodo() {
         const input = document.getElementById('todo')
         const name = input.value
@@ -291,9 +156,6 @@
             id: generateId()
         }))
     }
-
-    document.getElementById('todoBtn').addEventListener('click', addTodo)
-    document.getElementById('goalBtn').addEventListener('click', addGoal)
 
     function createRemoveButton(onClick) {
         const removeBtn = document.createElement('button')
@@ -339,7 +201,6 @@
 </script>
 
 <script type='text/babel'>
-
 
     function List(props) {
         return (
