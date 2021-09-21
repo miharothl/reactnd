@@ -1,41 +1,75 @@
-import React from 'react';
-import { render } from 'react-dom';
+<html>
 
-function Parent ({ name }) {
-  return (
-    <div>
-      <h1>Parent</h1>
-      <Child name={name}/>
-    </div>
-  );
-}
+<head>
+    <title>Udacity Todos Goals</title>
 
-function Child ({ name }) {
-  return (
-    <div>
-      <h1>Child</h1>
-      <Grandchild name={name}/>
-    </div>
-  );
-}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-function Grandchild ({ name }) {
-  return (
-    <div>
-      <h1>Grandchild</h1>
-      <h3>Name: {name}</h3>
-    </div>
-  );
-}
+    <!-- add bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-class App extends React.Component {
-  render() {
-    const name = 'Tyler';
+    <!-- custom css if needed -->
+    <!--    <link rel="stylesheet" href="styles.css"/>-->
 
-    return (
-      <Parent />
-    );
-  }
-}
+</head>
+<body>
+<div>
+    <p>Context</p></div>
+<hr>
 
-render(<App />, document.getElementById('root'));
+<div id="app"></div>
+
+<script type='text/babel'>
+    import React from 'react';
+    import {render} from 'react-dom';
+
+    function Parent({name}) {
+        return (
+            <div>
+                <h1>Parent</h1>
+                <Child name={name}/>
+            </div>
+        );
+    }
+
+    function Child({name}) {
+        return (
+            <div>
+                <h1>Child</h1>
+                <Grandchild name={name}/>
+            </div>
+        );
+    }
+
+    function Grandchild({name}) {
+        return (
+            <div>
+                <h1>Grandchild</h1>
+                <h3>Name: {name}</h3>
+            </div>
+        );
+    }
+
+    class App extends React.Component {
+        render() {
+            const name = 'Tyler';
+
+            return (
+                <Parent/>
+            );
+        }
+    }
+
+    render(<App/>, document.getElementById('app'));
+</script>
+</body>
+
+</html>
+
+
+
+
+
