@@ -76,6 +76,16 @@
         }
     }
 
+    function handleInitialData() {
+       return (dispatch) => {
+           Promise.all([
+               API.fetchTodos(),
+               API.fetchGoals()
+           ]).then(([todos, goals]) => {
+               dispatch(receiveDataAction(todos, goals))
+           })
+       }
+    }
 
    function handleDeleteTodo (todo) {
       return (dispatch) => {
@@ -403,14 +413,7 @@
 
             const {store} = this.props
 
-            Promise.all([
-                API.fetchTodos(),
-                API.fetchGoals()
-            ]).then(([todos, goals]) => {
-                store.dispatch(receiveDataAction(todos, goals))
-                console.log('Todos', todos)
-                console.log('Goals', goals)
-            })
+            store.dispatch(handleInitialData())
 
             // this is anti-pattern (if you change the state React will update, but there is no state as we are using
             // Redux
