@@ -17,6 +17,9 @@
     <!-- simulate database -->
     <script src="https://tylermcginnis.com/goals-todos-api/index.js"></script>
 
+    <!-- thunk -->
+    <script src="https://unpkg.com/redux-thunk@2.2.0/dist/redux-thunk.min.js"></script>
+
     <!-- add bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -71,6 +74,19 @@
             todos,
             goals
         }
+    }
+
+
+   function handleDeleteTodo (todo) {
+      return (dispatch) => {
+        dispatch(removeTodoAction(todo.id))
+
+        return API.deleteTodo(todo.id)
+          .catch(() => {
+            dispatch(addTodoAction(todo))
+            alert('An error occurred. Try again.')
+          })
+      }
     }
 
     function todos(state = [], action) {
@@ -163,7 +179,7 @@
         todos,
         goals,
         loading,
-    }), Redux.applyMiddleware(checker, logger))
+    }), Redux.applyMiddleware(ReduxThunk.default, checker, logger))
 
     store.subscribe(() => {
         console.log('THE NEW STATE IS:', store.getState())
@@ -284,17 +300,19 @@
         }
 
         removeItem = (todo) => {
-            // pessimistic update, lets use optimistic
-            // API.deleteTodo(todo.id).then(()=>{
-            //     this.props.store.dispatch(removeTodoAction(todo.id))
+            // // pessimistic update, lets use optimistic
+            // // API.deleteTodo(todo.id).then(()=>{
+            // //     this.props.store.dispatch(removeTodoAction(todo.id))
+            // // })
+            //
+            // // optimistic update
+            // this.props.store.dispatch(removeTodoAction(todo.id))
+            // API.deleteTodo(todo.id).catch(() => {
+            //     this.props.store.dispatch(addTodoAction(todo))
+            //     alert('An error occurred. Try again.')
             // })
 
-            // optimistic update
-            this.props.store.dispatch(removeTodoAction(todo.id))
-            API.deleteTodo(todo.id).catch(() => {
-                this.props.store.dispatch(addTodoAction(todo))
-                alert('An error occurred. Try again.')
-            })
+            this.props.store.dispatch(handleDeleteTodo(todo))
         }
 
         toggleItem = (id) => {
