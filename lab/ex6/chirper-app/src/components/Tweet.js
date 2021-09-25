@@ -8,6 +8,16 @@ import {TiHeartFullOutline} from "react-icons/all";
 
 class Tweet extends Component {
 
+  handleLike = (e) => {
+    e.preventDefault()
+
+    // todo: Handle Like Tweet
+  }
+  toParent = (e, id) => {
+    e.preventDefault()
+    // todo: Redirect to parent Tweet.
+  }
+
   render() {
     // console.log(this.props)
 
@@ -52,16 +62,6 @@ class Tweet extends Component {
         </div>
       </div>
     )
-  }
-
-  toParent = (e, id) => {
-    e.preventDefault()
-
-    // todo: redirect to parent tweet
-  }
-
-  handleLike = () => {
-
   }
 }
 
