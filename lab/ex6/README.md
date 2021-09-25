@@ -11,3 +11,4 @@
 
 1. `npm install react-redux redux`
 1. `npm install redux-thunk`
+1. `npm install react-icons`
