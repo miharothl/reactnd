@@ -27,8 +27,6 @@ class Tweet extends Component {
   }
 
   render() {
-    // console.log(this.props)
-
     const tweet = this.props.tweet
 
     if (tweet === null) {
