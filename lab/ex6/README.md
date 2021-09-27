@@ -13,3 +13,4 @@
 1. `npm install redux-thunk`
 1. `npm install react-icons`
 1. `npm install react-redux-loading`
+1. `npm install react-router-dom`
