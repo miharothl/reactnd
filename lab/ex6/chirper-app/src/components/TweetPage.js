@@ -22,7 +22,6 @@ class TweetPage extends Component {
             </li>
           ))}
         </ul>
-        TWEET PAGE
       </div>
     )
   }
@@ -36,7 +35,6 @@ function mapStateToProps({ authedUser, tweets, users}, props) {
     replies: !tweets[id]
     ? []
       : tweets[id].replies.sort((a,b)=> tweets[b].timestamp - tweets[a.timestamp])
-
   }
 }
 
