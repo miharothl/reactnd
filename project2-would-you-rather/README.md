@@ -1,10 +1,39 @@
+
+## Create an App From Scratch
+|Step                        |Desc|
+|---                         |---|
+|1. install create-react-app |`npm install -g create-react-app`|
+|2. create the React app     |`npx create-react-app dashboard --template typescript`|
+|3. install dependencies     |`cd dashboard`|
+|- redux, thunk              |`npm install redux react-redux redux-thunk`|
+|- router                    |`npm install react-router-dom`|
+|- icons, redux-loading      |`npm install react-icons react-redux-loading-bar`|
+|- bootstrap, react-bootstrap|`npm install bootstrap react-bootstrap`|
+|- prop-types                |`npm install --save prop-types`|
+|- testing ui                |`npm install --save-dev @testing-library/user-event @testing-library/dom`|
+|- testing redux             |`npm install --save-dev redux-mock-store`|
+|- linter                    |`npm install --save-dev eslint babel-eslint eslint-plugin-react`|
+|- linter, typescript        |`npm install --save-dev eslint-plugin-react@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest`|
+|- linter, typescript        |`npm install --save-dev @types/react-router-dom`|
+|- formatter                 |`npm install --save-dev prettier prettier-eslint prettier-eslint-cli`|
+|- argparse                  |`npm install --save-dev argpars`|
+
+
+
+
+
+
+
 # Would You Rather Project
 
 This is the starter code for the final assessment project for Udacity's React & Redux course.
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit
+in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to
+each user’s avatar.
 
-Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using
+the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
 
 ## Data
 
