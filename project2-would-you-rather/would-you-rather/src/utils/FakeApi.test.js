@@ -13,7 +13,7 @@ describe('FakeApi', () => {
     const questions = await _getQuestions();
     expect(Object.keys(questions).length > 0).toEqual(true)
   })
-  it('saveQuestion should save questionsReducers', async () => {
+  it('saveQuestion should save questions', async () => {
     const questions = await _getQuestions();
     const numQuestions = Object.keys(questions).length
     expect(numQuestions > 0).toEqual(true)

@@ -13,9 +13,6 @@ export default function questionsReducers(state = {}, action) {
       const id = action.question.id;
       const q = action.question;
 
-      console.log(id);
-      console.log(q);
-
       state[id] = q;
 
       return {

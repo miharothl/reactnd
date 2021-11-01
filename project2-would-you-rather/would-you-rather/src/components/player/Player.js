@@ -10,8 +10,11 @@ class Player extends Component {
         return (
             <Container>
                 <Row>
-                    <Col xs={1} md={1}>
-                        <Image src={users[id].avatarURL} fluid roundedCircle/>
+                    <Col xs={3} >
+                        <p> </p>
+                    </Col>
+                    <Col xs={1} >
+                        <Image className="text-end" src={users[id].avatarURL} fluid roundedCircle/>
                     </Col>
                     <Col>
                         {users[id].name}
