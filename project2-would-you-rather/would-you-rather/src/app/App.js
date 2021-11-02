@@ -7,7 +7,7 @@ import Navigator from "../components/navigator/Navigator";
 import Leaderboard from "../components/leaderboard/Leaderboard";
 import Dashboard from "../components/question/Home";
 import New from "../components/question/New";
-import Question from "../components/question/Question";
+import PollItem from "../components/question/PollItem";
 import Login from "../components/user/Login";
 import NotFoundError from "../components/error/NotFoundError";
 import ErrorBoundary from "../components/error/ErrorBoundary";
@@ -43,7 +43,7 @@ class App extends Component {
                                             <Switch>
                                                 <Route path="/" exact component={Dashboard}/>
                                                 <Route path="/leaderboard" component={Leaderboard}/>
-                                                <Route path="/questions/:id" component={Question}/>
+                                                <Route path="/questions/:id" component={PollItem}/>
                                                 <Route path="/new" component={New}/>
                                                 <Route path="/errorNotFound" component={NotFoundError}/>
                                                 <Route component={NotFoundError}/>

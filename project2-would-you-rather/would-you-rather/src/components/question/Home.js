@@ -1,7 +1,7 @@
 import {Component} from "react";
 import {connect} from "react-redux";
 import {Container, Row, Tab, Tabs} from "react-bootstrap";
-import VotingItems from "./VotingItems";
+import PollCards from "./PollCards";
 
 class Home extends Component {
     render () {
@@ -17,13 +17,13 @@ class Home extends Component {
                        className="mb-3"
                    >
                        <Tab eventKey="unanswered" title="Unanswered">
-                           <VotingItems
+                           <PollCards
                                ids={unansweredQuestionIds}
                                answered={false}
                            />
                        </Tab>
                        <Tab eventKey="answered" title="Answered">
-                           <VotingItems
+                           <PollCards
                                ids={answeredQuestionIds}
                                answered={true}
                            />

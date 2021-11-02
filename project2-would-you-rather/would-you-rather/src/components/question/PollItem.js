@@ -1,9 +1,9 @@
 import {Component} from "react";
 import {connect} from "react-redux";
-import PollStats from "./PollResult";
+import PollResult from "./PollResult";
 import PollQuestion from "./PollQuestion";
 
-class Question extends Component {
+class PollItem extends Component {
 
     state = {
         selectedOption: null,
@@ -16,7 +16,7 @@ class Question extends Component {
         return (
             <div>
                 {answered && (
-                    <PollStats id={id} />
+                    <PollResult id={id} />
                 )
                 }
                 {!answered && (
@@ -42,4 +42,4 @@ function mapStateToProps({authedUser, questions, users}, props) {
     };
 }
 
-export default connect(mapStateToProps)(Question);
+export default connect(mapStateToProps)(PollItem);

@@ -2,10 +2,9 @@ import {Component} from "react";
 import {connect} from "react-redux";
 import {Container, Row} from "react-bootstrap";
 import {withRouter} from "react-router-dom";
-import VotingItem from "./VotingItem";
+import PollCard from "./PollCard";
 
-class VotingItems extends Component {
-
+class PollCards extends Component {
 
     render() {
         const {ids, answered} = this.props;
@@ -15,11 +14,11 @@ class VotingItems extends Component {
                 <Row>
                     {ids.map((id) => {
                         return (
-                            <VotingItem
+                            <PollCard
                                 key={id}
                                 id={id}
                                 answered={answered}
-                            ></VotingItem>
+                            ></PollCard>
                         )
                     })}
                 </Row>
@@ -35,4 +34,4 @@ function mapStateToProps({questions, users}) {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(VotingItems));
+export default withRouter(connect(mapStateToProps)(PollCards));
