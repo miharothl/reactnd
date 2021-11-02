@@ -8,7 +8,7 @@ The goal is to build a web app that lets users play the "Would You Rather?" game
 
 To start the app right away:
 
-* clone the repo `git clone https://github.com/miharothl/und-react.git && cd project2-would-you-rather`
+* clone the repo `git clone https://github.com/miharothl/und-react.git && cd project2-would-you-rather/would-you-rather`
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
