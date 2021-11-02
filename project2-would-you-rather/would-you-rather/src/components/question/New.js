@@ -1,8 +1,8 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {connect} from "react-redux";
-import {handleAddQuestion} from "./questionsActions";
-
+import {handleAddQuestion} from "./questionActions";
+import {withRouter} from "react-router-dom";
 
 class New extends Component {
 
@@ -40,6 +40,8 @@ class New extends Component {
             optionOneText: "",
             optionTwoText: "",
         }));
+
+        this.props.history.push('/')
     }
 
     render() {
@@ -48,7 +50,9 @@ class New extends Component {
         return (
             <Container>
                 <Row>
-                    <h1>New Poll</h1>
+                    <Col sm lg={6}>
+                        <h1>New Poll</h1>
+                    </Col>
                 </Row>
 
                 <Form onSubmit={this.handleAddQuestion}>
@@ -58,8 +62,9 @@ class New extends Component {
                         </Col>
                         <Col sm={true}>
                             <Form.Group className="mb-3" controlId="optionOne">
-                                <Form.Control onChange={this.handleOptionOneChange} placeholder="take blue pill"
+                                <Form.Control onChange={this.handleOptionOneChange} placeholder="take a blue pill"
                                               type="optionOne"
+                                              required
                                               value={optionOneText}/>
                             </Form.Group>
                         </Col>
@@ -70,8 +75,9 @@ class New extends Component {
                         </Col>
                         <Col sm={true}>
                             <Form.Group className="mb-3" controlId="optionTwo">
-                                <Form.Control onChange={this.handleOptionTwoChange} placeholder="take red pill"
+                                <Form.Control onChange={this.handleOptionTwoChange} placeholder="take a red pill"
                                               type="optionTwo"
+                                              required
                                               value={optionTwoText}/>
 
                             </Form.Group>
@@ -91,4 +97,4 @@ class New extends Component {
     }
 }
 
-export default connect()(New);
+export default withRouter(connect()(New));

@@ -1,9 +1,10 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
-import {handleSaveAnswer} from "./questionsActions";
+import {handleSaveAnswer} from "./questionActions";
+import {Redirect, withRouter} from "react-router-dom";
 
-class Question extends Component {
+class PollQuestion extends Component {
 
     state = {
         selectedOption: null,
@@ -16,7 +17,6 @@ class Question extends Component {
 
     handleOnChange = (event) => {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         this.setState({
@@ -24,25 +24,28 @@ class Question extends Component {
         });
     }
 
-    render () {
-        const {id, question, user} = this.props;
+    render() {
+        const {question, author} = this.props;
+
+        if (author === null) {
+            return <Redirect to="/errorNotFound"/>;
+        }
 
         return (
             <Container>
-                <Row>
-                    <Col>
+                <Row className="justify-content-center">
+                    <Col xs lg={6}>
                         <h1>Would You Rather</h1>
                     </Col>
-                    <Col xs={1} >
-                        <Image className="text-end" src={user.avatarURL} fluid roundedCircle/>
-                        <p>{user.name}</p>
+                    <Col xs={2} className="justify-content-center">
+                        <Image className="justify-content-center" src={author.avatarURL} fluid roundedCircle/>
+                        <p className="text-center">{author.name}</p>
                     </Col>
                 </Row>
-
                 <Form onSubmit={this.handleOnSubmit}>
                     <Row>
-                       <Col sm={3}>
-                            <p className="text-capitalize text-end"> </p>
+                        <Col sm={3}>
+                            <p className="text-capitalize text-end"></p>
                         </Col>
                         <Col sm={true}>
                             <Form.Check
@@ -57,7 +60,7 @@ class Question extends Component {
                     </Row>
                     <Row>
                         <Col sm={3}>
-                            <p className="text-capitalize text-end"> </p>
+                            <p className="text-capitalize text-end"></p>
                         </Col>
                         <Col sm={true}>
                             <Form.Check
@@ -70,7 +73,6 @@ class Question extends Component {
                             />
                         </Col>
                     </Row>
-
                     <Row>
                         <Col sm={4}></Col>
                         <Col sm={true}>
@@ -85,17 +87,16 @@ class Question extends Component {
     }
 }
 
-function mapStateToProps({ authedUser, questions, users }, props) {
-    const { id } = props.match.params;
+function mapStateToProps({authedUser, questions, users}, props) {
+    const {id} = props;
     const question = questions[id]
-    const user = users[question['author']]
+    const author = question ? users[question['author']] : null;
 
     return {
         id,
         question,
-        user,
+        author,
     };
 }
 
-
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(PollQuestion));

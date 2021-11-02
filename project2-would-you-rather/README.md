@@ -3,8 +3,8 @@
 |Step                        |Desc|
 |---                         |---|
 |1. install create-react-app |`npm install -g create-react-app`|
-|2. create the React app     |`npx create-react-app dashboard --template typescript`|
-|3. install dependencies     |`cd dashboard`|
+|2. create the React app     |`npx create-react-app would-you-reather`|
+|3. install dependencies     |`cd would-you-reater`|
 |- redux, thunk              |`npm install redux react-redux redux-thunk`|
 |- router                    |`npm install react-router-dom`|
 |- icons, redux-loading      |`npm install react-icons react-redux-loading-bar`|
@@ -28,8 +28,8 @@
 
 This is the starter code for the final assessment project for Udacity's React & Redux course.
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit
-in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to
+The `FakeApi.js` file represents a fake database and methods that let you access the data. The only thing you need to edit
+in the ` FakeApi.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to
 each user’s avatar.
 
 Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using
@@ -51,7 +51,7 @@ Users include:
 | id                 | String           | The user’s unique identifier |
 | name          | String           | The user’s first name  and last name     |
 | avatarURL  | String           | The path to the image file |
-| questions | Array | A list of ids of the polling questions this user created|
+| questionReducers | Array | A list of ids of the polling questionReducers this user created|
 | answers      | Object         |  The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either `'optionOne'` or `'optionTwo'` since each question has two options.
 
 ### Questions
@@ -68,7 +68,7 @@ Questions include:
 
 ### Voting Options
 
-Voting options are attached to questions. They include:
+Voting options are attached to questionReducers. They include:
 
 | Attribute | Type | Description |
 |-----------------|------------------|-------------------|
@@ -84,12 +84,12 @@ Your code will talk to the database via 4 methods:
 
 1) `_getUsers()` Method
 
-*Description*: Get all of the existing users from the database.  
+*Description*: Get all of the existing userReducers from the database.  
 *Return Value*: Object where the key is the user’s id and the value is the user object.
 
 2) `_getQuestions()` Method
 
-*Description*: Get all of the existing questions from the database.  
+*Description*: Get all of the existing questionReducers from the database.  
 *Return Value*: Object where the key is the question’s id and the value is the question object.
 
 3) `_saveQuestion(question)` Method
@@ -109,8 +109,8 @@ Your code will talk to the database via 4 methods:
 |-----------------|------------------|-------------------|
 | id | String | The id of the question that was posted|
 | author | String | The id of the user who posted the question|
-| optionOne | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
-| optionTwo | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
+| optionOne | Object | The object has a text property and a votes property, which stores an array of the ids of the userReducers who voted for that option|
+| optionTwo | Object | The object has a text property and a votes property, which stores an array of the ids of the userReducers who voted for that option|
 |timestamp|String | The time when the question was created|
 
 4) `_saveQuestionAnswer(object)` Method

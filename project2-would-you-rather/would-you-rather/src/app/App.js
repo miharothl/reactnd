@@ -1,14 +1,17 @@
 import React, {Component, Fragment} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import LoadingBar from 'react-redux-loading-bar';
 import {handleInitialData} from './appActions';
 import Navigator from "../components/navigator/Navigator";
 import Leaderboard from "../components/leaderboard/Leaderboard";
-import Dashboard from "../components/questions/Dashboard";
-import New from "../components/questions/New";
-import Question from "../components/questions/Question";
+import Dashboard from "../components/question/Home";
+import New from "../components/question/New";
+import Question from "../components/question/Question";
+import Login from "../components/user/Login";
+import NotFoundError from "../components/error/NotFoundError";
+import ErrorBoundary from "../components/error/ErrorBoundary";
+import LoadingBar from "react-redux-loading-bar";
 
 class App extends Component {
     componentDidMount() {
@@ -16,34 +19,53 @@ class App extends Component {
     }
 
     render() {
+        const {authedUser} = this.props;
+
         return (
-            <Router>
-                <>
+
+            <ErrorBoundary>
+                <Router>
                     <LoadingBar/>
-                    <div>
-                        <Navigator/>
-                        {
-                            this.props.loading === true
-                                ? null
-                                : (
-                                    <div>
-                                        <Route path="/" exact component={Dashboard}/>
-                                        <Route path="/leaderboard" component={Leaderboard}/>
-                                        <Route path="/questions/:id" component={Question}/>
-                                        <Route path="/new" component={New}/>
-                                    </div>
-                                )
-                        }
-                    </div>
-                </>
-            </Router>
+                    {this.props.loading === true ? null
+                        : (
+                            <>
+                                {authedUser === null ? (
+                                        <>
+                                            <div>
+                                                <Navigator/>
+                                                <Login/>
+                                            </div>
+                                        </>
+                                    )
+                                    : (
+                                        <>
+                                            <Navigator/>
+                                            <Switch>
+                                                <Route path="/" exact component={Dashboard}/>
+                                                <Route path="/leaderboard" component={Leaderboard}/>
+                                                <Route path="/questions/:id" component={Question}/>
+                                                <Route path="/new" component={New}/>
+                                                <Route path="/errorNotFound" component={NotFoundError}/>
+                                                <Route component={NotFoundError}/>
+                                            </Switch>
+                                        </>
+                                    )}
+                            </>
+                        )
+                    }
+                </Router>
+            </ErrorBoundary>
         );
     }
 }
 
-function mapStateToProps({authedUser}) {
+function mapStateToProps({authedUser, questions, users}) {
     return {
-        loading: authedUser === null,
+        authedUser,
+        loading:
+            (Object.keys(questions).length === 0 ||
+                Object.keys(users).length === 0) &&
+            authedUser === null
     };
 }
 

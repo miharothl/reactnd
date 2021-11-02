@@ -5,15 +5,15 @@ describe('FakeApi', () => {
   it('first test', () => {
     expect(true).toEqual(true)
   })
-  it('getUsers should return users', async () => {
+  it('getUsers should return user', async () => {
     const users = await _getUsers();
     expect(Object.keys(users).length > 0).toEqual(true)
   })
-  it('getQuestions should return questionsReducers', async () => {
+  it('getQuestions should return questionReducers', async () => {
     const questions = await _getQuestions();
     expect(Object.keys(questions).length > 0).toEqual(true)
   })
-  it('saveQuestion should save questions', async () => {
+  it('saveQuestion should save question', async () => {
     const questions = await _getQuestions();
     const numQuestions = Object.keys(questions).length
     expect(numQuestions > 0).toEqual(true)

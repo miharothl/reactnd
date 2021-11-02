@@ -1,8 +1,7 @@
 import {Component} from "react";
 import {connect} from "react-redux";
 import {Container, Row} from "react-bootstrap";
-import Player from "../player/Player";
-
+import PlayerCard from "./PlayerCard";
 
 class Leaderboard extends Component {
     render() {
@@ -14,16 +13,12 @@ class Leaderboard extends Component {
                 <Row>
                     <h1>Leaders</h1>
                 </Row>
-                <Row>
-                    <ul className="dashboard-list">
-                        {userIds.map((id) => {
-                            return (<li key={id}>
-                                    <Player id={id}/>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </Row>
+                {userIds.map((id) => {
+                    return (<Row key={id}>
+                            <PlayerCard id={id}/>
+                        </Row>
+                    )
+                })}
             </Container>
         )
     }
@@ -42,6 +37,5 @@ function mapPropsToState({users}) {
         userIds: sortedIds
     }
 }
-
 
 export default connect(mapPropsToState)(Leaderboard);

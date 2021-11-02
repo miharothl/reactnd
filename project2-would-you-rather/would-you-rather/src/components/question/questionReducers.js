@@ -1,6 +1,6 @@
-import {ADD_QUESTION, RECEIVE_QUESTIONS} from "./questionsActions";
+import {ADD_QUESTION, RECEIVE_QUESTIONS} from "./questionActions";
 
-export default function questionsReducers(state = {}, action) {
+export default function questionReducers(state = {}, action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS: {
       return {

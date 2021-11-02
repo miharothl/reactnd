@@ -1,10 +1,9 @@
 import {showLoading, hideLoading} from 'react-redux-loading-bar';
-import {_getQuestions, _getUsers, _saveQuestion, _saveQuestionAnswer} from "../../utils/FakeApi";
-import {handleReceiveUsers, receiveUsers} from "../../app/actions/users";
+import {_getQuestions, _saveQuestion, _saveQuestionAnswer} from "../../utils/FakeApi";
+import {handleReceiveUsers} from "../user/userActions";
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const ADD_QUESTION = 'ADD_QUESTION';
-export const SAVE_ANSWER = 'SAVE_ANSWER';
 
 function addQuestion(question) {
     return {
@@ -58,8 +57,6 @@ export function handleSaveAnswer(questionId, answer) {
             .then(() => dispatch(hideLoading()));
     };
 }
-
-
 
 export function receiveQuestions(questions) {
     return {

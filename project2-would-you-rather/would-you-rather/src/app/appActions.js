@@ -1,11 +1,8 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-import { receiveUsers } from './actions/users';
-import { setAuthedUser } from './actions/authedUser';
+import {receiveUsers, setAuthedUser} from '../components/user/userActions';
 import {getInitialData} from "../utils/FakeApi";
-import {receiveQuestions} from "../components/questions/questionsActions";
-
-const AUTHED_ID = 'tylermcginnis';
+import {receiveQuestions} from "../components/question/questionActions";
 
 export function handleInitialData() {
   return (dispatch) => {
@@ -14,7 +11,7 @@ export function handleInitialData() {
       .then(({ users, questions}) => {
         dispatch(receiveUsers(users));
         dispatch(receiveQuestions(questions));
-        dispatch(setAuthedUser(AUTHED_ID));
+        dispatch(setAuthedUser(null));
         dispatch(hideLoading());
       });
   };
