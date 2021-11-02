@@ -1,129 +1,45 @@
+# Would You Rather?
 
-## Create an App From Scratch
-|Step                        |Desc|
-|---                         |---|
-|1. install create-react-app |`npm install -g create-react-app`|
-|2. create the React app     |`npx create-react-app would-you-reather`|
-|3. install dependencies     |`cd would-you-reater`|
-|- redux, thunk              |`npm install redux react-redux redux-thunk`|
-|- router                    |`npm install react-router-dom`|
-|- icons, redux-loading      |`npm install react-icons react-redux-loading-bar`|
-|- bootstrap, react-bootstrap|`npm install bootstrap react-bootstrap`|
-|- prop-types                |`npm install --save prop-types`|
-|- testing ui                |`npm install --save-dev @testing-library/user-event @testing-library/dom`|
-|- testing redux             |`npm install --save-dev redux-mock-store`|
-|- linter                    |`npm install --save-dev eslint babel-eslint eslint-plugin-react`|
-|- linter, typescript        |`npm install --save-dev eslint-plugin-react@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest`|
-|- linter, typescript        |`npm install --save-dev @types/react-router-dom`|
-|- formatter                 |`npm install --save-dev prettier prettier-eslint prettier-eslint-cli`|
-|- argparse                  |`npm install --save-dev argpars`|
+The "Would You Rather"? is the final project of the Udacity React Nanodegree program.
 
+The goal is to build a web app that lets users play the "Would You Rather?" game. The game goes like this: A user is asked a question in the form: "Would you rather [option A] or [option B] ?". Answering "neither" or "both" is against the rules.
 
+## TL;DR
 
+To start the app right away:
 
+* clone the repo `git clone https://github.com/miharothl/und-react.git && cd project2-would-you-rather`
+* install all project dependencies with `npm install`
+* start the development server with `npm start`
 
+## How To Use
 
+Navigate to [http://localhost:3000](http://localhost:3000)
 
-# Would You Rather Project
+First, you have to log in to the web app by choosing between three preset users.
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+![Login](./images/login.png)
 
-The `FakeApi.js` file represents a fake database and methods that let you access the data. The only thing you need to edit
-in the ` FakeApi.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to
-each user’s avatar.
+In the home view, you can see the answered or unanswered polls for a logged-in user.
 
-Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using
-the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+![Change Bookshelf](./images/view-polls.png)
 
-## Data
+Users can answer the poll and observe the poll results.
 
-There are two types of objects stored in our database:
+![Search for Books](./images/poll-result.png)
 
-* Users
-* Questions
+To earn extra points, users can create a new poll.
 
-### Users
+![Search for Books](./images/new-poll.png)
 
-Users include:
+The leaderboard shows current winners based on the total points they achieved, the sum of polls created and answered.
 
-| Attribute    | Type             | Description           |
-|-----------------|------------------|-------------------         |
-| id                 | String           | The user’s unique identifier |
-| name          | String           | The user’s first name  and last name     |
-| avatarURL  | String           | The path to the image file |
-| questionReducers | Array | A list of ids of the polling questionReducers this user created|
-| answers      | Object         |  The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either `'optionOne'` or `'optionTwo'` since each question has two options.
+![Search for Books](./images/leaderboard.png)
 
-### Questions
+## Resources
 
-Questions include:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| id                  | String | The question’s unique identifier |
-| author        | String | The author’s unique identifier |
-| timestamp | String | The time when the question was created|
-| optionOne | Object | The first voting option|
-| optionTwo | Object | The second voting option|
-
-### Voting Options
-
-Voting options are attached to questionReducers. They include:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| votes             | Array | A list that contains the id of each user who voted for that option|
-| text                | String | The text of the option |
-
-Your code will talk to the database via 4 methods:
-
-* `_getUsers()`
-* `_getQuestions()`
-* `_saveQuestion(question)`
-* `_saveQuestionAnswer(object)`
-
-1) `_getUsers()` Method
-
-*Description*: Get all of the existing userReducers from the database.  
-*Return Value*: Object where the key is the user’s id and the value is the user object.
-
-2) `_getQuestions()` Method
-
-*Description*: Get all of the existing questionReducers from the database.  
-*Return Value*: Object where the key is the question’s id and the value is the question object.
-
-3) `_saveQuestion(question)` Method
-
-*Description*: Save the polling question in the database.  
-*Parameters*:  Object that includes the following properties: `author`, `optionOneText`, and `optionTwoText`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| author | String | The id of the user who posted the question|
-| optionOneText| String | The text of the first option |
-| optionTwoText | String | The text of the second option |
-
-*Return Value*:  An object that has the following properties: `id`, `author`, `optionOne`, `optionTwo`, `timestamp`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| id | String | The id of the question that was posted|
-| author | String | The id of the user who posted the question|
-| optionOne | Object | The object has a text property and a votes property, which stores an array of the ids of the userReducers who voted for that option|
-| optionTwo | Object | The object has a text property and a votes property, which stores an array of the ids of the userReducers who voted for that option|
-|timestamp|String | The time when the question was created|
-
-4) `_saveQuestionAnswer(object)` Method
-
-*Description*: Save the answer to a particular polling question in the database.
-*Parameters*: Object that contains the following properties: `authedUser`, `qid`, and `answer`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| authedUser | String | The id of the user who answered the question|
-| qid | String | The id of the question that was answered|
-| answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
-
-## Contributing
-
-This repository is the starter code for *all* Udacity students. Therefore, we most likely will not accept pull requests. For details, check out [CONTRIBUTING.md](https://github.com/udacity/reactnd-project-would-you-rather-starter/blob/master/CONTRIBUTING.md).
+* [Udacity Starter Template](https://github.com/udacity/reactnd-project-would-you-rather-starter)
+* [Udacity HTML Style Guide](http://udacity.github.io/frontend-nanodegree-styleguide/index.html)
+* [CSS Style Guide](http://udacity.github.io/frontend-nanodegree-styleguide/css.html)
+* [JavaScript Stype Guide](http://udacity.github.io/frontend-nanodegree-styleguide/javascript.html)
+* [Git Stype Guide](https://udacity.github.io/git-styleguide/)
